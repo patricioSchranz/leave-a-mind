@@ -1,0 +1,11 @@
+{
+  "name": "leave-a-mind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "built:main-style": "sass ./src/sass/main.scss ./styles/main.css --style=compressed --watch"
+  },
+  "author": "",
+  "license": "ISC"
+}

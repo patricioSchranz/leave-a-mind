@@ -1,0 +1,140 @@
+// ---------------------------------------------------
+// ### MIXINS ###
+// --------------------------------------------------
+
+//
+// 'BORDERS'
+// 
+
+// --- TESTING BORDERS ---
+
+@mixin testing-border-1{
+    border: 1px solid black;
+}
+
+@mixin testing-border-2{
+    border: 1px dashed black;
+}
+
+@mixin testing-border-3{
+    border: 1px dotted black;
+}
+
+
+// 
+// 'BOX SHADOWS'
+// 
+
+// --- OUTER SHADOWS ---
+
+@mixin box-shadow-default($color){
+    box-shadow: 1px 3px 6px $color;
+}
+
+// --- GLOWING SHADOWS ---
+
+@mixin box-shadow-glowing($color){
+    box-shadow: 0px 0px 5px $color;
+}
+
+// --- INSET SHADOWS ---
+
+@mixin box-shadow-inset($color){
+    box-shadow: 3px 3px 6px $color inset;
+}
+
+@mixin box-shadow-inset-double($color){
+    box-shadow: 
+        3px 3px 6px $color inset,
+        -3px -3px 6px $color inset;
+}
+
+
+// 
+// 'FLEX BOX'
+//
+
+// --- FLEX VARIABLE ---
+
+@mixin flex-variable($direction, $wrap, $justy, $align, $align-content){
+    display: flex;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    justify-content: $justy;
+    align-items: $align;
+    align-content: $align-content;
+}
+
+// --- CENTER ---
+
+@mixin flex-row-center{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;   
+    align-content: center;
+}
+
+@mixin flex-column-center{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;   
+    align-content: center;
+}
+
+// --- EVENLY ---
+
+@mixin flex-row-evenly{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;   
+    align-content: center;
+}
+
+@mixin flex-row-evenly-stretch{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+// --- DEFAULT + WRAP ---
+
+@mixin flex-row-default-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content:flex-start;
+}
+
+
+//
+// 'STACK'
+// 
+
+@mixin stack-10{
+    position: relative;
+    z-index: 10;
+}
+
+
+//
+// 'GLAS EFFECTS'
+//
+
+@mixin glas-1{
+    background: rgba( 255, 255, 255, 0.2 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+
+//
+// 'BACKGROUND IMAGES'
+// 
+
+@mixin background-image($url){
+        background: url($url) center center / cover no-repeat;
+}
