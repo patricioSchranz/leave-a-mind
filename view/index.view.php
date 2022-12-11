@@ -93,29 +93,94 @@
                         </header>
 
                         <?php 
-                            // 'FORMAT THE CONTENT TO MAKE LINEBREAKS VISIBLE'
+                            // 'HANDLE THE CONTENT OF THE ENTRY '
+                
+                            // --- POEM CONTENT ---
+                            if($entry['hashtag'] === 'Gedicht'){
 
-                            $paragraphs = explode("\n", $entry['content']);
-                            $filteredParagraphs = [];
+                                // 'FORMAT THE CONTENT TO MAKE LINEBREAKS VISIBLE => METHOD 1'
 
-                            foreach($paragraphs as $paragraph){
-                                $paragraph = trim($paragraph);
+                                // => check which line break is a part of a poem paragraph
+                                //    and wich is a line break between two poem paragraphs
+                                // => check if there is more then one line break between two poem paragraphs
+                                //    and delete the souperfluous
 
-                                if(strlen($paragraph) > 0){
-                                    $filteredParagraphs[] = $paragraph;
+                                $poemParts = explode("\n", $entry['content']);
+                                // dmp('poem paragraphs', $poemParts);
+
+                                $idxOfLinebreak = 0;
+
+                                foreach($poemParts as $idx => $value){
+                                    $value = trim($value);
+                                    // dmp('the array value', $value);
+
+                                    if(strlen($value) === 0){
+                                        // echo $idx . "=>" . $value;
+
+                                        if($idxOfLinebreak === 0){
+                                            $idxOfLinebreak = $idx +1;
+                                            $poemParts[$idx] = $value;
+                                        }
+
+                                        if($idxOfLinebreak === $idx){
+                                            $idxOfLinebreak = $idx +1;
+                                            unset($poemParts[$idx]);
+                                        }
+                                    }
+                                    else if(strlen($value) > 0){
+                                        $idxOfLinebreak = 0;
+                                    }
+                                }
+
+                                // dmp('poem paragraphs', $poemParts);
+
+                                // 'CREATE DOM CONTENT'
+
+                                foreach($poemParts as $poemPart){
+                                    // dmp('poem part', $poemPart);
+
+                                    if(strlen($poemPart) > 0){
+                                        echo 
+                                            "<span class='lam_entries_entry_poem-line'>" .
+                                                escape($poemPart) . 
+                                            "</span>";
+                                    }
+                                    else {
+                                        echo "<br>";
+                                    }
+                                }
+
+                            }
+                            // --- ALL OTHER CONTENT ---
+                            else{
+
+                                // 'FORMAT THE CONTENT TO MAKE LINEBREAKS VISIBLE => METHOD 2'
+
+                                // => check the line breaks and sort out any empty line
+                                
+                                $paragraphs = explode("\n", $entry['content']);
+                                $filteredParagraphs = [];
+
+                                foreach($paragraphs as $paragraph){
+                                    $paragraph = trim($paragraph);
+    
+                                    if(strlen($paragraph) > 0){
+                                        $filteredParagraphs[] = $paragraph;
+                                    }
+                                }
+                                
+                                // dmp('paragraphs', $paragraphs);
+    
+                                // 'CREATE DOM CONTENT'
+    
+                                foreach($filteredParagraphs as $formatedParagraph){
+                                    echo 
+                                        "<p class='lam_entries_entry_content'>" . 
+                                        escape($formatedParagraph) . 
+                                        "</p>";
                                 }
                             }
-                            
-                            // dmp('paragraphs', $paragraphs);
-
-                            // 'CREATE THE CONTENT IN THE DOM'
-
-                            foreach($filteredParagraphs as $formatedParagraph){
-                                echo 
-                                    "<p class='lam_entries_entry_content'>" . 
-                                    escape($formatedParagraph) . 
-                                    "</p>";
-                            }
+                            // dmp('content', $entry['content']);
                         ?>    
                     </article>
 

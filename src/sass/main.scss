@@ -207,6 +207,20 @@ label:not(.radio-fields_field-container label){
                 // @include testing-border-3();
                 padding: 1rem 2rem;
             }
+
+            &_poem-line{
+                display: block;
+                margin-left: 2rem;
+
+                &:first-of-type{
+                    margin-top: 1.5rem;
+                }
+
+                &:last-of-type{
+                    margin-bottom: 2rem;
+                }
+            }
+
         }
     }
 
