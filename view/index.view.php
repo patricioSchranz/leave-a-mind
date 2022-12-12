@@ -186,6 +186,14 @@
 
                 <?php endforeach; ?>
 
+                <?php if(empty($entries)) :?>
+                    <p class="no-results">
+                        Sorry, es sind keine Einträge für den Zeitraum zwischen 
+                        <span><?= europeDateFormat($startDate)?></span> und 
+                        <span><?= europeDateFormat($endDate) ?> </span> vorhanden.
+                    </p>
+                <?php endif; ?>
+
                 <!-- dummy entry -->
                 <!-- <article class="lam_entries_entry">
                     <header class="lam_entries_entry_header">

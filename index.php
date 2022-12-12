@@ -35,6 +35,12 @@ $sql_selectAuthor = '
     ORDER BY `id` DESC
 ';
 
+$sql_selectPeriod = '
+    SELECT *
+    FROM `entries`
+    WHERE `date` BETWEEN :startDate AND :endDate
+';
+
 
 // 'PREPARTE STATEMENTS'
 
@@ -42,6 +48,7 @@ $statement_fetchAll = $pdo->prepare($sql_selectAll);
 $statement_fetchAllForTheFilter = $pdo->prepare($sql_selectAll);
 $statement_fetchByCategory = $pdo->prepare($sql_selectCategory);
 $statement_fetchByAuthor = $pdo->prepare($sql_selectAuthor);
+$statement_fetchPeriod = $pdo->prepare($sql_selectPeriod);
 
 
 // 'EXECUTE THE RIGHT PREPARED STATEMENT'
@@ -58,7 +65,7 @@ else{
     dmp('the get parameter', $_GET);
     
     if(isset($_GET['category'])){
-        dmp('choosen category', $_GET['category']);
+        // dmp('choosen category', $_GET['category']);
 
         $statement_fetchByCategory->bindValue(':searchedCategory',$_GET['category'] );
         $statement_fetchByCategory->execute();
@@ -68,7 +75,7 @@ else{
     }
 
     else if(isset($_GET['author'])){
-        dmp('choosen author', $_GET['author']);
+        // dmp('choosen author', $_GET['author']);
 
         $statement_fetchByAuthor->bindValue(':searchedAuthor', $_GET['author']);
         $statement_fetchByAuthor->execute();
@@ -79,16 +86,22 @@ else{
     else if(isset($_GET['time'])){
         dmp('choosen time', $_GET['time']);
 
-        $timeArray = explode(',', $_GET['time']);
-        dmp('time array', $timeArray);
+        $periodArray = explode(',', $_GET['time']);
+        // dmp('period array', $periodArray);
 
-        $sortedTimeArray = sortArrayOfDateStrings($timeArray);
-        dmp('sorted time array',$sortedTimeArray);
+        $sortedPeriodArray = sortArrayOfDateStrings($periodArray);
+        // dmp('sorted period array',$sortedPeriodArray);
 
-        // $statement_fetchByAuthor->bindValue(':searchedAuthor', $_GET['author']);
-        // $statement_fetchByAuthor->execute();
+        $startDate = $sortedPeriodArray[0];
+        $endDate = $sortedPeriodArray[1];
 
-        // $entries = $statement_fetchByAuthor->fetchAll(PDO::FETCH_ASSOC);
+        $statement_fetchPeriod->bindValue(':startDate', $startDate);
+        $statement_fetchPeriod->bindValue(':endDate', $endDate);
+        $statement_fetchPeriod->execute();
+
+        $entries = $statement_fetchPeriod->fetchAll(PDO::FETCH_ASSOC);
+
+        // dmp('period entries', $entries);
     }
 
 }
