@@ -4,16 +4,21 @@
 
 const
     floatingActionButton = document.querySelector('.lam_floating-actions_button'),
+
     pickList = document.querySelector('.lam_floating-actions_list'),
     pickListItems = pickList.querySelectorAll('li'),
     pickListSubOptionDisplay = document.querySelector('.lam_floating-actions_choice'),
+
     subPickListCategory = document.querySelector('.lam_floating-actions_choice_category'),
     subPickListCategoryItems = subPickListCategory.querySelectorAll('li'),
     subPickListAuthor = document.querySelector('.lam_floating-actions_choice_author'),
     subPickListAuthorItems = subPickListAuthor.querySelectorAll('li'),
     subPickListDate = document.querySelector('.lam_floating-actions_choice_date'),
     subPickListDateElements = document.querySelectorAll('input'),
+    startDateElement = document.querySelector('#start-date'),
+    endDateElement = document.querySelector('#end-date'),
     subPickListPlaceholder = document.querySelector('.placeholder-for-js-state'),
+
     hiddenForm = document.querySelector('.lam_floating-actions_form'),
     hiddenFormInput = hiddenForm.querySelector('input'),
 
@@ -26,7 +31,7 @@ const
 // -------------------------------------
 
 //
-// 'FUNCTIONS FOR THIS AREA'
+// 'CALLBACK FUNCTIONS FOR THE EVENTS'
 //
 
 const submitTheChoosenOption = (option, optionValue)=>{
@@ -121,21 +126,33 @@ subPickListAuthorItems.forEach(listItem =>{
 subPickListDateElements.forEach(dateElement =>{
     dateElement.addEventListener('click', (event)=>{
         const 
-            startDateElement = dateElement.hasAttribute('name') ? '' : event.target,
-            endDateElement = dateElement.hasAttribute('name') ? event.target : '',
+            clickedDateElement = event.target,
             currentDate = new Date().toISOString().split('T')[0]
 
-        console.log('start date element ?', startDateElement)
-        console.log('end date element ? ', endDateElement)
-        console.log('the current date', currentDate)
+        clickedDateElement.setAttribute('max', currentDate)
 
-        if(startDateElement){
-            startDateElement.setAttribute('max', currentDate)
+        clickedDateElement === startDateElement
+        ? console.log('start date is clicked')
+        : console.log('end date is clicked')
+
+        console.log('the current date', currentDate)
+        console.log('the clicked date element', clickedDateElement)
+        console.log('value of the clickedDateElement', clickedDateElement.value)
+
+        clickedDateElement.onchange = ()=>{
+            console.log('end date changed', endDateElement.value)
+
+            if(startDateElement.value && endDateElement.value){
+                console.log('two dates exist')
+
+                const fullSearchedDate = [startDateElement.value, endDateElement.value]
+
+                submitTheChoosenOption('time', fullSearchedDate)
+            }
         }
-        else if(endDateElement){
-            endDateElement.setAttribute('max', currentDate)
-        }
+      
             
     })
 })
+
 

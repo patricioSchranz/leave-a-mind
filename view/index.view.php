@@ -257,10 +257,10 @@
                     </div>
                 
                     <label for="start-date">Von :</label>
-                    <input type="date" id="start-date" min="<?= $theFirstExistingDate ?>">
+                    <input type="date" id="start-date" name="start-date" min="<?= $theFirstExistingDate ?>">
 
                     <label for="end-date">Bis :</label>
-                    <input type="date" id="end-date" name="date" min="<?= $theFirstExistingDate ?>" >
+                    <input type="date" id="end-date" name="end-date" min="<?= $theFirstExistingDate ?>" >
                 </div>
 
                 <div class="placeholder-for-js-state"></div>

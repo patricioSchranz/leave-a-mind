@@ -76,6 +76,21 @@ else{
         $entries = $statement_fetchByAuthor->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    else if(isset($_GET['time'])){
+        dmp('choosen time', $_GET['time']);
+
+        $timeArray = explode(',', $_GET['time']);
+        dmp('time array', $timeArray);
+
+        $sortedTimeArray = sortArrayOfDateStrings($timeArray);
+        dmp('sorted time array',$sortedTimeArray);
+
+        // $statement_fetchByAuthor->bindValue(':searchedAuthor', $_GET['author']);
+        // $statement_fetchByAuthor->execute();
+
+        // $entries = $statement_fetchByAuthor->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 
