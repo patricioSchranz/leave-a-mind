@@ -84,23 +84,35 @@ const validateForm = formElements =>{
             {name, element, regExp} = formElement,
             trimmedInputValue = element.value.trim()
 
+        // => if a element has a regular expression to check, check if anything match
         if(regExp){
             // console.log('element with regexp', name)
-            trimmedInputValue.match(regExp)
-            ? formElements[idx].errorMessage = `Unzulässige Eingabe: Es sind nur alphanumerische Werte und Leerzeichen erlaubt`
-            : formElements[idx].valid = true
+
+            if(trimmedInputValue.match(regExp)){
+                formElements[idx].errorMessage = `Unzulässige Eingabe: <br> Es sind nur alphanumerische Werte <br> und Leerzeichen erlaubt`
+                formElements[idx].valid = false
+            }
+             else if(!trimmedInputValue.match(regExp)){
+                formElements[idx].errorMessage = ''
+                formElements[idx].valid = true
+             }
+        }
+        // => if there is no regEx for a element, it must still contain at least one character
+        else if(!regExp){
+            console.log('input length', trimmedInputValue.length)
+            trimmedInputValue.length > 0 && (formElements[idx].valid = true)
         }
 
+        // => each element musst contain at least one character
         if(trimmedInputValue.length === 0){
             formElements[idx].errorMessage = 'Unzulässige Eingabe: Leeres Feld'
             formElements[idx].valid = false
+        } 
+        else if(trimmedInputValue.length > 0 && formElements[idx].valid){
+            formElements[idx].errorMessage = ''
+            formElements[idx].valid = true
         }
 
-        if(name === 'message'){
-            console.log('message length', trimmedInputValue.length)
-            trimmedInputValue.length > 0 && (formElements[idx].valid = true)
-        }
-        
         console.log(`${name} is valid: ${formElements[idx].valid}`)
         console.log('error:', formElements[idx].errorMessage)  
     })
@@ -150,9 +162,9 @@ const submitFormOrShowError = (formElements) =>{
             console.log(input.name)
             console.log(input.valid)
             console.log(input.hintDisplay)
-            console.log(input.hintDisplay.innerHTML)
 
             input.valid || (input.hintDisplay.innerHTML = input.errorMessage)
+            input.valid && (input.hintDisplay.innerHTML = input.errorMessage)
         })
     }
     console.log('-  -')
@@ -174,19 +186,26 @@ formControlButton.addEventListener('click', ()=>{
             break
 
         case 1:
-            // => change the button style
-            formControlButton.style.backgroundColor = 'skyblue'
-            formControlButton.childNodes[1].style.display = 'block'
-            formControlButton.childNodes[3].style.display = 'none'
-
+            // => validate the form elements
             validateForm(formElements)
-            checkIfAllElementsValid(formElements)
-            submitFormOrShowError(formElements)
 
-            // => submit the form datas
-            // theForm.submit()
-           
-            formState = 0
+            // => check the valid state of the whole form
+            checkIfAllElementsValid(formElements)
+
+            // => if form is valid, reset the button style and form state and submit the form
+            if(formValid){
+                // => change the button style
+                formControlButton.style.backgroundColor = 'skyblue'
+                formControlButton.childNodes[1].style.display = 'block'
+                formControlButton.childNodes[3].style.display = 'none'
+
+                // => reset the form state
+                formState = 0
+            }
+
+            // => submit form or show user hints
+            submitFormOrShowError(formElements)
+            
             break
     }
 })

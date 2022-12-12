@@ -94,7 +94,11 @@ label:not(.radio-fields_field-container label){
             }
 
             & .hint{
+                // @include testing-border-3();
                 width: 100%;
+                text-align: center;
+                color: tomato;
+                margin-top: .5rem;
             }
         }
 
