@@ -5,10 +5,15 @@
 const
     formControlButton = document.querySelector('.lam_form-controll-button'),
     theForm = document.querySelector('.lam_form'),
-    inputAuthorName = theForm['name'],
-    inputTitle = theForm['title'],
-    inputContent = theForm['message']
 
+    inputAuthorName = theForm['name'],
+    hintAuthor = inputAuthorName.nextElementSibling,
+
+    inputTitle = theForm['title'],
+    hintTitle = inputTitle.nextElementSibling,
+
+    inputContent = theForm['message'],
+    hintContent = inputContent.nextElementSibling
 
 
 
@@ -25,10 +30,10 @@ const
 // SHOW THE FORM, HANDLE THE FORM, SUBMIT THE FORM
 
 let 
-    formState = 0,
-    formValid = false
+    formState = 0, // state of the form process to control actions
+    formValid = false // state of the form validity
 
-const regExp_alphanumericWhitespace = /[^\w\s]/g
+const regExp_alphanumericWhitespace = /[^\w\s]/g // match all that is not ([^]) alphanumeric (\w) or whitespace (\s) globaly (/g)
 
 // let test = "Rute   8 "
 // console.log(test.match(regExp_alphanumericWhitespace))
@@ -36,12 +41,14 @@ const regExp_alphanumericWhitespace = /[^\w\s]/g
 // test.match(regExp_alphanumericWhitespace) || console.log('match valid input')
 // test.match(regExp_alphanumericWhitespace) && console.log('match invalid input')
 
+// => create an object for each form element
 const formElements = [
     {
         name : 'author',
         element: inputAuthorName,
         regExp: regExp_alphanumericWhitespace,
         errorMessage: "",
+        hintDisplay: hintAuthor,
         valid: false
     },
     {
@@ -49,12 +56,14 @@ const formElements = [
         element: inputTitle,
         regExp: regExp_alphanumericWhitespace,
         errorMessage: "",
+        hintDisplay: hintTitle,
         valid: false
     },
     {
         name : 'message',
         element: inputContent,
         errorMessage: "",
+        hintDisplay: hintContent,
         regExp: null,
         valid: false
     }
@@ -66,54 +75,87 @@ const formElements = [
 //     console.log(regExp)
 // })
 
-// const validateTheForm = (array){
-
-// }
-
+// => validate the form datas
 const validateForm = formElements =>{
+    console.log('--- validateForm() ---')
+
     formElements.forEach((formElement, idx) =>{
         let 
-            {name, element, regExp, valid, errorMessage} = formElement,
+            {name, element, regExp} = formElement,
             trimmedInputValue = element.value.trim()
 
         if(regExp){
+            // console.log('element with regexp', name)
             trimmedInputValue.match(regExp)
-            ? errorMessage = `Unzulässige Eingabe: Es sind nur alphanumerische Werte und Leerzeichen erlaubt`
+            ? formElements[idx].errorMessage = `Unzulässige Eingabe: Es sind nur alphanumerische Werte und Leerzeichen erlaubt`
             : formElements[idx].valid = true
         }
 
         if(trimmedInputValue.length === 0){
-            errorMessage = 'Unzulässige Eingabe: Leeres Feld'
-            valid = false
+            formElements[idx].errorMessage = 'Unzulässige Eingabe: Leeres Feld'
+            formElements[idx].valid = false
         }
 
         if(name === 'message'){
-            trimmedInputValue.length > 0 && (valid = true)
+            console.log('message length', trimmedInputValue.length)
+            trimmedInputValue.length > 0 && (formElements[idx].valid = true)
         }
         
-        console.log(`${name} is valid: ${valid}`)
-        console.log('error:', errorMessage)
+        console.log(`${name} is valid: ${formElements[idx].valid}`)
+        console.log('error:', formElements[idx].errorMessage)  
     })
+
+    console.log('---')
 }
 
+// => check if all form elements are valid / set whole form valid state
 const checkIfAllElementsValid = formElements =>{
     let validElements = 0
 
-    console.log('the form elements / check function', formElements)
+    console.log('--- checkIfAllElementsValid() ---')
 
     formElements.forEach(element =>{
         console.log('name =>', element.name)
         console.log('valid ?', element.valid)
         console.log('count valid elements =>', validElements)
-        element.valid && console.log(element.valid)
-        console.log('count valid elements =>', validElements)
-        // validElements === formElements.length && (formValid = true)
+
+        element.valid && validElements++
+        validElements === formElements.length && (formValid = true)
     })
 
+    
     formValid && console.log('Form is valid')
-    console.log(formValid)
-    console.log(formElements.length)
-    console.log(validElements)
+    console.log('formvalid =>', formValid)
+    console.log('formElements.length =>', formElements.length)
+    console.log('valid elements =>', validElements)
+    console.log('---')
+}
+
+// => if the valid state for the form is true, submit the form
+//    else => throw the error messages / user hints
+const submitFormOrShowError = (formElements) =>{
+    console.log('- submitFormOrShowError -')
+
+    if(formValid){
+        // => before submit, delete the whitespaces from the start and the end of the input strings
+        formElements.forEach(input =>{
+            input.element.value = input.element.value.trim()
+            console.log(input.element.value)
+        })
+
+        theForm.submit()
+    }
+    else{
+        formElements.forEach(input =>{
+            console.log(input.name)
+            console.log(input.valid)
+            console.log(input.hintDisplay)
+            console.log(input.hintDisplay.innerHTML)
+
+            input.valid || (input.hintDisplay.innerHTML = input.errorMessage)
+        })
+    }
+    console.log('-  -')
 }
 
 formControlButton.addEventListener('click', ()=>{
@@ -128,7 +170,7 @@ formControlButton.addEventListener('click', ()=>{
             // => change the state of this process
             formState = 1
 
-            console.log('child nodes of the button =>', formControlButton.childNodes[1])
+            // console.log('child nodes of the button =>', formControlButton.childNodes[1])
             break
 
         case 1:
@@ -137,12 +179,9 @@ formControlButton.addEventListener('click', ()=>{
             formControlButton.childNodes[1].style.display = 'block'
             formControlButton.childNodes[3].style.display = 'none'
 
-            console.log('the form elements', formElements)
-
-            // validateForm(formElements)
-
-            console.log('the form elements after validation', formElements)
+            validateForm(formElements)
             checkIfAllElementsValid(formElements)
+            submitFormOrShowError(formElements)
 
             // => submit the form datas
             // theForm.submit()
