@@ -186,13 +186,16 @@ formControlButton.addEventListener('click', ()=>{
             break
 
         case 1:
+            theForm.submit()
+            break
+
             // => validate the form elements
             validateForm(formElements)
 
             // => check the valid state of the whole form
             checkIfAllElementsValid(formElements)
 
-            // => if form is valid, reset the button style and form state and submit the form
+            // => if form is valid, reset the button style and form state
             if(formValid){
                 // => change the button style
                 formControlButton.style.backgroundColor = 'skyblue'

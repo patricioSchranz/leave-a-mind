@@ -62,7 +62,7 @@ if(empty($_GET)){
     // dmp('FETCH ALL ENTRIES', $entries);
 }
 else{
-    dmp('the get parameter', $_GET);
+    // dmp('the get parameter', $_GET);
     
     if(isset($_GET['category'])){
         // dmp('choosen category', $_GET['category']);
@@ -84,7 +84,7 @@ else{
     }
 
     else if(isset($_GET['time'])){
-        dmp('choosen time', $_GET['time']);
+        // dmp('choosen time', $_GET['time']);
 
         $periodArray = explode(',', $_GET['time']);
         // dmp('period array', $periodArray);

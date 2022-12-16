@@ -23,7 +23,7 @@ function dmp($text, $var){
 
 // => defuse a string
 function escape($text){
-    return htmlentities($text,ENT_QUOTES, 'UTF-8', true);
+    return htmlentities($text,ENT_QUOTES, 'UTF-8', false);
 }
 
 // => make a european date
