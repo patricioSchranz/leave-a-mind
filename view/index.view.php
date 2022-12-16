@@ -37,6 +37,7 @@
                         spellcheck="true"
                         required></textarea>
                     <span class="hint"></span>
+                    <span class="free-character-hint">XXX</span>
                 </div>
 
                 <div class="lam_form_input-container radio-fields">
@@ -286,6 +287,7 @@
     </div><!-- End Big Container -->
     
     <script src="./src/js/form.js"></script>
+    <script src="./src/js/free_chars_hint.js"></script>
     <script src="./src/js/filter.js"></script>
 </body>
 </html>

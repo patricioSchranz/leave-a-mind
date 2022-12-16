@@ -93,13 +93,22 @@ label:not(.radio-fields_field-container label){
                 }
             }
 
-            & .hint{
+            & .hint,
+            & .free-character-hint{
                 // @include testing-border-3();
                 width: 100%;
                 text-align: center;
-                color: tomato;
                 margin-top: .5rem;
             }
+
+            & .free-character-hint{
+                color: #c4d93b;
+            }
+
+            & .hint{
+                color: tomato;
+            }
+
         }
 
         & p{
