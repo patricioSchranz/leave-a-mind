@@ -244,7 +244,7 @@
                     foreach($storedEntriesForTheFilter as $entry){
                         $date = $entry['date'];
 
-                        in_array($date, $dateArray) || $dateArray[] = $date;
+                        in_array($date, $dateArray) || $dateArray[] = $date; 
                     }
 
                     $sortedDateArray = sortArrayOfDateStrings($dateArray);
