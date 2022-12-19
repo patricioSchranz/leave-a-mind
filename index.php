@@ -6,15 +6,21 @@ require __DIR__ . '/inc/functions.php';
 // dmp('PDO Objekt', $pdo);
 // dmp('GET Array', $_GET);
 
+
 // 'PAGINATION VARIABLES'
 
-$countOfAllEntries = 0;
-$entriesPerPage = 10;
-$pageCount = ceil($countOfAllEntries / 5);
-$currentPage = 1;
-$offset = ($currentPage -1) * $entriesPerPage ;
-$limit = $currentPage * $entriesPerPage - 1;
+$countOfAllEntries = 0; // placeholder
+$entriesPerPage = 2; // the count of entries that should be visible per page
 
+$currentPage = 
+    isset($_GET['page'])
+    ? (int)$_GET['page']
+    : 1; 
+
+$offset = ($currentPage -1) * $entriesPerPage ; // first entry of the page
+$limit = $currentPage * $entriesPerPage - 1; // last entry of the page
+
+dmp('THE CURRENT PAGE IS ', $currentPage);
 
 // -------------------------------------------
 // ### WORKING WITH THE DATABASE ###
@@ -22,6 +28,7 @@ $limit = $currentPage * $entriesPerPage - 1;
 
 $entriesAll = [];  // placeholder for all of the searched database entries
 $entries = []; // placeholder for the searched database entries that are prepared for the output
+$usedFilter = []; // placeholder for the used filter
 
 // 'SQL STATEMENTS'
 
@@ -66,7 +73,11 @@ $statement_fetchPeriod = $pdo->prepare($sql_selectPeriod);
 $statement_fetchAllForTheFilter->execute();
 $storedEntriesForTheFilter = $statement_fetchAllForTheFilter->fetchAll(PDO::FETCH_ASSOC);
 
-if(empty($_GET)){
+if(
+    empty($_GET['category']) &&
+    empty($_GET['author']) &&
+    empty($_GET['time'])
+    ){
     $statement_fetchAll->execute();
     $entriesAll = $statement_fetchAll->fetchAll(PDO::FETCH_ASSOC);
 
@@ -85,10 +96,15 @@ if(empty($_GET)){
        
     // }
 
+    // => selection of entries for the current page
     $entries = getPaginationPortion($entriesAll, $offset, $limit);
     // dmp('entries', $entries);
     
     dmp('count of all entries', $countOfAllEntries);
+
+    // foreach($entries as $key => $value){
+    //     echo $key . '<br>';
+    // }
     // dmp('FETCH ALL ENTRIES', $entries);
 }
 else{
@@ -101,9 +117,15 @@ else{
         $statement_fetchByCategory->execute();
 
         $entriesAll = $statement_fetchByCategory->fetchAll(PDO::FETCH_ASSOC);
+        $countOfAllEntries = count($entriesAll);
 
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
-        // dmp('fetch by category', $entries);
+        $usedFilter = $_GET;
+
+        dmp('used filter', $usedFilter);
+        dmp('page number', $currentPage);
+        dmp('offset', $offset);
+        dmp('limit', $limit);
     }
 
     else if(isset($_GET['author'])){
@@ -113,8 +135,15 @@ else{
         $statement_fetchByAuthor->execute();
 
         $entriesAll = $statement_fetchByAuthor->fetchAll(PDO::FETCH_ASSOC);
+        $countOfAllEntries = count($entriesAll);
 
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
+        $usedFilter = $_GET;
+
+        dmp('used filter', $usedFilter);
+        dmp('page number', $currentPage);
+        dmp('offset', $offset);
+        dmp('limit', $limit);
     }
 
     else if(isset($_GET['time'])){
@@ -134,8 +163,15 @@ else{
         $statement_fetchPeriod->execute();
 
         $entriesAll = $statement_fetchPeriod->fetchAll(PDO::FETCH_ASSOC);
+        $countOfAllEntries = count($entriesAll);
 
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
+        $usedFilter = $_GET;
+
+        dmp('used filter', $usedFilter);
+        dmp('page number', $currentPage);
+        dmp('offset', $offset);
+        dmp('limit', $limit);
 
         // dmp('period entries', $entries);
     }

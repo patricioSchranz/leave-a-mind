@@ -209,6 +209,27 @@
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </p>
                 </article> --> 
+
+                <?php 
+                    $numberOfPages = ceil($countOfAllEntries / $entriesPerPage);
+
+                    dmp('number of pages', $numberOfPages);
+                    dmp('used filter', $usedFilter);
+                    dmp('count of all entries', $countOfAllEntries);
+
+                    for($x = 1; $x <= $numberOfPages; $x++){
+                        $usedFilter['page'] = $x;
+                        $paginationQuery = escape(http_build_query($usedFilter));
+
+                        // dmp('query', $paginationQuery);
+
+                        echo 
+                            "<a href='./index.php?{$paginationQuery}' style='margin: .2rem'>" . 
+                            $x . 
+                            "</a>";
+                    }
+                ?>
+
             </section>
         </main>
 
@@ -219,6 +240,7 @@
             <button class="lam_floating-actions_button"></button>
 
             <ul class="lam_floating-actions_list">
+                <li>Kein Filter</li>
                 <li>Kategorie</li>
                 <li>Autor</li>
                 <li>Zeitraum</li>

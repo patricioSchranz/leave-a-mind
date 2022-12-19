@@ -104,6 +104,10 @@ pickListItems.forEach(pickListItem =>{
                 currentSubOptionsList = subPickListDate
                 currentSubOptionsList.style.display = 'flex'
                 break
+
+            case 'Kein Filter' :
+                currentSubOptionsList.style.display = 'none'
+                window.open('./index.php')
         }
     })
 })
