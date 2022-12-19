@@ -80,7 +80,8 @@
             <section class="lam_entries">
 
     <!-- Entry -->
-                <!-- <?php dmp('entries array', $entries) ?><br> -->
+               <? /*php dmp('entries array', $entries) */?>
+               <!-- <br>  -->
 
                 <!-- // 'CREATE AN ARTICLE FOR EACH ENTRY OF THE DATABSE ' -->
                 <?php if(!empty($entries)) foreach($entries as $entry): ?>
@@ -187,7 +188,7 @@
 
                 <?php endforeach; ?>
 
-                <?php if(empty($entries)) :?>
+                <?php if(empty($entries) && isset($_GET['time']) ) :?>
                     <p class="no-results">
                         Sorry, es sind keine Einträge für den Zeitraum zwischen 
                         <span><?= europeDateFormat($startDate)?></span> und 
@@ -207,7 +208,7 @@
                     <p class="lam_entries_entry_content">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </p>
-                </article> -->
+                </article> --> 
             </section>
         </main>
 
@@ -232,9 +233,23 @@
                     <li>Empfehlung</li>
                 </ul>
 
+                <?php 
+                    $filteredAuthor = ['Moritz'];
+
+                    foreach($storedEntriesForTheFilter as $entry){
+                        $authorName = $entry['author'];
+
+                        // dmp('author name', $authorName);
+                        in_array($authorName, $filteredAuthor) || $filteredAuthor[] = $authorName; 
+            
+                    }
+
+                    // dmp('filtered authors', $filteredAuthor);
+                ?>
+
                 <ul class="lam_floating-actions_choice_author">
-                   <?php foreach($storedEntriesForTheFilter as $entry): ?>
-                        <li><?= escape($entry['author']) ?></li>
+                   <?php foreach($filteredAuthor as $entry): ?>
+                        <li><?= escape($entry) ?></li>
                     <?php endforeach; ?>
                 </ul>
 

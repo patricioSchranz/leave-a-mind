@@ -52,3 +52,23 @@ function sortArrayOfDateStrings ($array){
 
     return $array;
 }
+
+// => push a section of a array, to another array
+function getPaginationPortion ($fullArray,$offset, $limit ){
+    $portionedArray = [];
+
+    for($x = $offset; $x <= $limit; $x++){
+        // dmp('$x', $x);
+        // dmp('$limit', $limit);
+        
+        if(!empty($fullArray[$x])){
+            $portionedArray[$x] = $fullArray[$x];
+        }
+        else{
+            break;
+        }
+       
+    }
+
+    return $portionedArray;
+}

@@ -390,6 +390,8 @@ label:not(.radio-fields_field-container label){
                 margin-left: 1rem;
                 cursor: pointer;
                 display: none;
+                position: absolute;
+                top: 0;
             }
 
             &_category,
