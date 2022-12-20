@@ -10,7 +10,7 @@ require __DIR__ . '/inc/functions.php';
 // 'PAGINATION VARIABLES'
 
 $countOfAllEntries = 0; // placeholder
-$entriesPerPage = 2; // the count of entries that should be visible per page
+$entriesPerPage = 5; // the count of entries that should be visible per page
 
 $currentPage = 
     isset($_GET['page'])
@@ -20,7 +20,9 @@ $currentPage =
 $offset = ($currentPage -1) * $entriesPerPage ; // first entry of the page
 $limit = $currentPage * $entriesPerPage - 1; // last entry of the page
 
-dmp('THE CURRENT PAGE IS ', $currentPage);
+// dmp('THE CURRENT PAGE IS ', $currentPage);
+
+
 
 // -------------------------------------------
 // ### WORKING WITH THE DATABASE ###
@@ -100,12 +102,7 @@ if(
     $entries = getPaginationPortion($entriesAll, $offset, $limit);
     // dmp('entries', $entries);
     
-    dmp('count of all entries', $countOfAllEntries);
-
-    // foreach($entries as $key => $value){
-    //     echo $key . '<br>';
-    // }
-    // dmp('FETCH ALL ENTRIES', $entries);
+    // dmp('count of all entries', $countOfAllEntries);
 }
 else{
     // dmp('the get parameter', $_GET);
@@ -122,10 +119,10 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        dmp('used filter', $usedFilter);
-        dmp('page number', $currentPage);
-        dmp('offset', $offset);
-        dmp('limit', $limit);
+        // dmp('used filter', $usedFilter);
+        // dmp('page number', $currentPage);
+        // dmp('offset', $offset);
+        // dmp('limit', $limit);
     }
 
     else if(isset($_GET['author'])){
@@ -140,10 +137,10 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        dmp('used filter', $usedFilter);
-        dmp('page number', $currentPage);
-        dmp('offset', $offset);
-        dmp('limit', $limit);
+        // dmp('used filter', $usedFilter);
+        // dmp('page number', $currentPage);
+        // dmp('offset', $offset);
+        // dmp('limit', $limit);
     }
 
     else if(isset($_GET['time'])){
@@ -168,10 +165,10 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        dmp('used filter', $usedFilter);
-        dmp('page number', $currentPage);
-        dmp('offset', $offset);
-        dmp('limit', $limit);
+        // dmp('used filter', $usedFilter);
+        // dmp('page number', $currentPage);
+        // dmp('offset', $offset);
+        // dmp('limit', $limit);
 
         // dmp('period entries', $entries);
     }

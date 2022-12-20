@@ -83,6 +83,23 @@
                <? /*php dmp('entries array', $entries) */?>
                <!-- <br>  -->
 
+               <div class="lam_entries_page-info">
+                    <p class="lam_entries_page-info_entrys">
+                        Gefundene Beiträge : <span><?= $countOfAllEntries ?></span>
+                    </p>
+                    
+                    <h2>
+                        Seite 
+                        <span>
+                            <?= $currentPage ?>
+                        <span> von 
+                        <span class="lam_entries_page-info_all-pages-count">
+                            <?= ceil($countOfAllEntries / $entriesPerPage) ?>
+                        </span>
+                    </h2>
+
+               </div>
+
                 <!-- // 'CREATE AN ARTICLE FOR EACH ENTRY OF THE DATABSE ' -->
                 <?php if(!empty($entries)) foreach($entries as $entry): ?>
 
@@ -210,25 +227,58 @@
                     </p>
                 </article> --> 
 
-                <?php 
-                    $numberOfPages = ceil($countOfAllEntries / $entriesPerPage);
+    <!-- PAGINATION --->
+                <div class="lam_entries_pagination">
+                    <button class="lam_entries_pagination_pages-down">
+                        <img src="./images/left-arrow.png" alt="left arrow">
+                    </button>
 
-                    dmp('number of pages', $numberOfPages);
-                    dmp('used filter', $usedFilter);
-                    dmp('count of all entries', $countOfAllEntries);
+                    <div class="lam_entries_pagination-container">
 
-                    for($x = 1; $x <= $numberOfPages; $x++){
-                        $usedFilter['page'] = $x;
-                        $paginationQuery = escape(http_build_query($usedFilter));
+                        <!-- // 'CREATE LINKS TO THE PAGES' -->
+                        <?php 
+                            $numberOfPages = ceil($countOfAllEntries / $entriesPerPage);
 
-                        // dmp('query', $paginationQuery);
+                            // dmp('number of pages', $numberOfPages);
+                            // dmp('used filter', $usedFilter);
+                            // dmp('count of all entries', $countOfAllEntries);
+                            // dmp('current page', $currentPage);
 
-                        echo 
-                            "<a href='./index.php?{$paginationQuery}' style='margin: .2rem'>" . 
-                            $x . 
-                            "</a>";
-                    }
-                ?>
+                            for($x = 1; $x <= $numberOfPages; $x++){
+                                $usedFilter['page'] = $x;
+                                $paginationQuery = escape(http_build_query($usedFilter));
+
+                                // dmp('query', $paginationQuery);
+
+                                if($x === $currentPage){
+                                    echo 
+                                    "<a 
+                                        href='./index.php?{$paginationQuery}' 
+                                        class='lam_entries_pagination-number current-page hidden'>" . 
+                                    $x . 
+                                    "</a>";
+                                }
+                                else{
+                                    echo 
+                                    "<a 
+                                        href='./index.php?{$paginationQuery}' 
+                                        class='lam_entries_pagination-number not-current-page hidden'>" . 
+                                    $x . 
+                                    "</a>";
+                                }
+                             
+                            }
+                        ?>
+
+                    </div>
+
+                    <button class="lam_entries_pagination_pages-up">
+                        <img src="./images/right-arrow.png" alt="right arrow">
+                    </button>
+                </div>
+
+            <!-- // ' HANDLE THE DISPLAY OF THE PAGE OPTIONS ' -->
+            <!-- <script src="./src/js/pagination.js"></script> -->
 
             </section>
         </main>
@@ -323,9 +373,12 @@
 
     </div><!-- End Big Container -->
     
+    <script src="./src/js/pages-entry-hints.js"></script>
+    <script src="./src/js/pagination_handle_reload.js"></script>
     <script src="./src/js/form.js"></script>
     <script src="./src/js/free_chars_hint.js"></script>
     <script src="./src/js/filter.js"></script>
+    <script src="./src/js/pagination.js"></script>
 </body>
 </html>
 

@@ -186,8 +186,9 @@ formControlButton.addEventListener('click', ()=>{
             break
 
         case 1:
-            theForm.submit()
-            break
+            // => needed 4 php testing
+            // theForm.submit()
+            // break
 
             // => validate the form elements
             validateForm(formElements)

@@ -149,6 +149,13 @@ label:not(.radio-fields_field-container label){
         margin-top: 5rem;
         @include flex-row-center();
 
+        // --- PAGE INFO ---
+        &_page-info{
+            width: 100%;
+            // padding-left: 2rem;
+            text-align: center;
+        }
+
         // --- ENTRY ---
         &_entry{
             // @include testing-border-2();
@@ -233,7 +240,78 @@ label:not(.radio-fields_field-container label){
                     margin-bottom: 2rem;
                 }
             }
+        }
 
+        // --- PAGINATION ---
+
+        &_pagination{
+        //   @include testing-border-1();
+          width: 80%;
+          @include flex-row-center();
+
+
+          &_pages-up,
+          &_pages-down{
+            &:disabled{
+                opacity: 0.1;
+                cursor: default;
+            }
+            }
+
+            & img{
+                width: 1rem;
+                opacity: 0.8;
+            }
+        }
+
+        // &_pagination-container-wrapper{
+        //     // @include testing-border-1();
+        //     width: 10rem;
+        //     overflow: hidden;
+        //     position: relative;
+        // }
+
+        &_pagination-container{
+            // @include testing-border-2();
+            // width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0 1rem;
+
+            & a{
+                // @include testing-border-3();
+                width: 2rem;
+                height: 2rem;
+                // padding: .2rem;
+                margin: .2rem;
+                flex-shrink: 0;
+                @include flex-row-center();
+            }
+
+           
+            & a.hidden{
+                display: none;
+            }
+
+            & a.visible{
+                display: flex;
+            }
+
+            & a.current-page{
+                color:#c4d93b;
+                font-weight: bold;
+                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+            }
+
+            & a.not-current-page{
+                opacity: 0.4;
+                transition: opacity .3s;
+
+                &:hover{
+                    opacity: 1;
+                }
+            }
         }
     }
 
