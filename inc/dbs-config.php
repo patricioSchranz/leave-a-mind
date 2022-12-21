@@ -5,7 +5,7 @@
 // ------------------------------------------
 
 $host = 'localhost';
-$database = 'leave_a_mind';
+$database = 'lam';
 
 $user= 'root';
 $password = '';

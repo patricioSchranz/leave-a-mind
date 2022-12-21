@@ -108,6 +108,7 @@ pickListItems.forEach(pickListItem =>{
             case 'Kein Filter' :
                 currentSubOptionsList.style.display = 'none'
                 window.open('./index.php', '_self')
+                break
         }
     })
 })

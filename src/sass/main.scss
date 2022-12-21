@@ -22,6 +22,10 @@ input:not([type='radio']){
         border: 1px solid skyblue; 
         outline: none;
     }
+
+    @media screen and (max-width: 370px ) {
+        width: auto;
+    }
 }
 
 label:not(.radio-fields_field-container label){
@@ -30,10 +34,20 @@ label:not(.radio-fields_field-container label){
     // text-shadow: 0 1px 1px skyblue;
 }
 
+body, input, textarea{
+    font-size: 105%;
+    @include font-main();
+}
+
+h2{
+    margin-bottom: 5rem;
+}
+
 // --- MAIN ---
 .lam{
     width: 100%;
     @include flex-row-center();
+    padding-bottom: 5rem;
 
     // --- CONTROL BUTTON ---
     &_form-controll-button{
@@ -70,6 +84,7 @@ label:not(.radio-fields_field-container label){
         display: none;
         border: double rgba(0, 0, 0, 0.1);
         border-width: 5px 0;
+        overflow-x: hidden;
 
         &_input-container:not(.radio-fields){
             // @include testing-border-2();
@@ -91,6 +106,14 @@ label:not(.radio-fields_field-container label){
                     border: 1px solid skyblue; 
                     outline: none;
                 }
+
+                @media screen and (max-width: 555px) {
+                    width: 95vw;
+                }
+
+                // @media screen and (max-width: 400px) {
+                //     width: 60%;
+                // }
             }
 
             & .hint,
@@ -146,7 +169,7 @@ label:not(.radio-fields_field-container label){
     &_entries{
         // @include testing-border-1();
         width: 100%;
-        margin-top: 5rem;
+        margin-top: 3rem;
         @include flex-row-center();
 
         // --- PAGE INFO ---
@@ -167,6 +190,15 @@ label:not(.radio-fields_field-container label){
             // @include box-shadow-default(rgba(0, 0, 0, 0.1));
             position: relative;
 
+            @media screen and (max-width: 900px) {
+                width: 85%;
+            }
+
+            @media screen and (max-width: 500px) {
+                width: 95%;
+                margin-bottom: 3rem;
+            }
+
             &::before{
                 content: '';
                 position: absolute;
@@ -176,6 +208,14 @@ label:not(.radio-fields_field-container label){
                 height: 3rem;
                 background-color: rgba(0, 0, 0, 0.05);
                 z-index: -1;
+
+                @media screen and (max-width: 500px) {
+                    height: 1.5rem;
+                    width: 3rem;
+                    top: -1.5rem;
+                    left: .5rem;
+                    display: none;
+                }
             }
 
             &_header{
@@ -184,11 +224,21 @@ label:not(.radio-fields_field-container label){
                 position: relative;
                 padding: 1rem;
                 // background-color: rgba(0, 0, 0, 0.01);
+
+                @media screen and (max-width: 900px) {
+                    gap: 1rem;
+                }
             }
 
             &_author{
                 color: skyblue;
-                font-size: 110%;
+                color: rgba(0, 0, 0, 0.5);
+                font-size: 115%;
+                // text-shadow: 1px 1px 1px skyblue;
+                // background-color: rgba(135, 207, 235, 1);
+                // background-color: rgba(0, 0, 0, 0.01);
+                // padding: .2rem .5rem;
+                // color: #fff
             }
 
             &_category{
@@ -200,6 +250,14 @@ label:not(.radio-fields_field-container label){
                 padding: .2rem;
                 width: 7rem;
                 text-align: center;
+
+                @media screen and (max-width: 900px) {
+                    position: relative;
+                    width: 100%;
+                    // top: -.5rem;
+                    text-align: right;
+                    padding-right: 1rem;
+                }
             }
 
             &_title{
@@ -214,6 +272,8 @@ label:not(.radio-fields_field-container label){
                 flex-shrink: 0;
                 padding-left: 2rem;
                 background-color: rgba(0, 0, 0, 0.02);
+                padding: .5rem;
+                padding-left: 2rem; 
                 @include box-shadow-default(rgba(0, 0, 0, 0.05));
 
                 &::first-letter{
@@ -226,11 +286,19 @@ label:not(.radio-fields_field-container label){
             &_content{
                 // @include testing-border-3();
                 padding: 1rem 2rem;
+
+                @media screen and (max-width: 500px) {
+                    padding: 1rem;
+                }
             }
 
             &_poem-line{
                 display: block;
                 margin-left: 2rem;
+
+                @media screen and (max-width: 500px) {
+                   margin-left: 1rem;
+                }
 
                 &:first-of-type{
                     margin-top: 1.5rem;
@@ -379,6 +447,19 @@ label:not(.radio-fields_field-container label){
             padding-bottom: 2rem;
             transition: all .3s;
 
+            @media screen and (max-width: 1100px) {
+                position: fixed;
+                top: 0;
+                // left: 0;
+                width: 100vw;
+                @include flex-variable(row, wrap, flex-start, center, center);
+                padding: 0;
+                margin: 0;
+                transform: translate(2.5rem);
+                @include box-shadow-default(rgba(0, 0, 0, 0.5));
+                // border: 3px solid rgba(0, 0, 0, 1);
+            }
+
             // &:hover{
             //     left: -2.5rem;
             // }
@@ -413,6 +494,23 @@ label:not(.radio-fields_field-container label){
                         0 1px 1px rgba(0, 0, 0, 0.3),
                         0 5px 10px rgba(0, 0, 0, 0.1) inset;
                 }
+
+                @media screen and (max-width: 1100px) {
+                    padding: 1rem;
+                   flex-grow: 1;
+                   border-radius: 0;
+                   margin: 0;
+                //    height: 2.5rem;
+
+                   &:hover{
+                    border-radius: 0;
+                   }
+                }
+            }
+
+            & li.no-filter{
+                background-color: #fff;
+                // border: 1px solid tomato;
             }
         }
 
@@ -468,8 +566,28 @@ label:not(.radio-fields_field-container label){
                 margin-left: 1rem;
                 cursor: pointer;
                 display: none;
+            }
+
+            &_date{
+                @media screen and (max-width: 550px) {
+                    margin: 7rem 1rem;
+                    margin-top: 12rem;
+                }
+            }
+
+            &_author{
                 position: absolute;
                 top: 0;
+
+                @media screen and (max-width: 1100px) {
+                  top: 5rem;
+                //   width: 90vw;
+
+                 }
+
+                 @media screen and (max-width: 530px) {
+                    top: 10rem;
+                 }
             }
 
             &_category,
@@ -480,11 +598,16 @@ label:not(.radio-fields_field-container label){
                     border-left: 5px solid rgba(0, 0, 0, 0.7);
                     border-bottom: 1px solid rgba(215, 229, 121, 0.5);
                     border-top: 1px solid rgba(215, 229, 121, .5);
+                    font-size: 105%;
 
                     &:hover{
                         box-shadow:
                              0 0px 5px rgba(215, 229, 121, 1),
                              0 3px 5px rgba(0, 0, 0, 0.1) inset;
+                    }
+
+                    &:last-of-type{
+                        margin-bottom: 5rem;
                     }
                 }
             }
@@ -497,4 +620,9 @@ label:not(.radio-fields_field-container label){
             }
         }
     }
+}
+
+.no-results{
+    padding: 1rem;
+    margin-bottom: 2rem;
 }

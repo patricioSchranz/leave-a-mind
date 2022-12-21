@@ -30,8 +30,8 @@
                 <div class="lam_form_input-container">
                     <label for="message">Message :</label>
                     <textarea 
-                        cols="50"
-                        rows="20"
+                        cols="60"
+                        rows="12"
                         name="message" 
                         id="message"
                         spellcheck="true"
@@ -290,7 +290,7 @@
             <button class="lam_floating-actions_button"></button>
 
             <ul class="lam_floating-actions_list">
-                <li>Kein Filter</li>
+                <li class="no-filter">Kein Filter</li>
                 <li>Kategorie</li>
                 <li>Autor</li>
                 <li>Zeitraum</li>
