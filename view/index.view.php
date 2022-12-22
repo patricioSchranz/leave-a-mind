@@ -306,7 +306,7 @@
                 </ul>
 
                 <?php 
-                    $filteredAuthor = ['Moritz'];
+                    $filteredAuthor = [];
 
                     foreach($storedEntriesForTheFilter as $entry){
                         $authorName = $entry['author'];
