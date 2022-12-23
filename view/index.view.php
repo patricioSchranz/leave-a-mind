@@ -80,9 +80,6 @@
             <section class="lam_entries">
 
     <!-- Entry -->
-               <? /*php dmp('entries array', $entries) */?>
-               <!-- <br>  -->
-
                <div class="lam_entries_page-info">
                     <p class="lam_entries_page-info_entrys">
                         Gefundene Beiträge : <span><?= $countOfAllEntries ?></span>
@@ -125,13 +122,11 @@
                                 //    and delete the souperfluous
 
                                 $poemParts = explode("\n", $entry['content']);
-                                // dmp('poem paragraphs', $poemParts);
 
                                 $idxOfLinebreak = 0;
 
                                 foreach($poemParts as $idx => $value){
                                     $value = trim($value);
-                                    // dmp('the array value', $value);
 
                                     if(strlen($value) === 0){
                                         // echo $idx . "=>" . $value;
@@ -151,12 +146,9 @@
                                     }
                                 }
 
-                                // dmp('poem paragraphs', $poemParts);
-
                                 // 'CREATE DOM CONTENT'
 
                                 foreach($poemParts as $poemPart){
-                                    // dmp('poem part', $poemPart);
 
                                     if(strlen($poemPart) > 0){
                                         echo 
@@ -187,8 +179,6 @@
                                         $filteredParagraphs[] = $paragraph;
                                     }
                                 }
-                                
-                                // dmp('paragraphs', $paragraphs);
     
                                 // 'CREATE DOM CONTENT'
     
@@ -199,7 +189,7 @@
                                         "</p>";
                                 }
                             }
-                            // dmp('content', $entry['content']);
+
                         ?>    
                     </article>
 
@@ -213,20 +203,6 @@
                     </p>
                 <?php endif; ?>
 
-                <!-- dummy entry -->
-                <!-- <article class="lam_entries_entry">
-                    <header class="lam_entries_entry_header">
-                        <span class="lam_entries_entry_author">Max Mustermann</span>
-                        <span class="lam_entries_entry_date">schrieb am 24.10.2022</span>
-                        <span class="lam_entries_entry_category"># Gedanke</span>
-                        <span class="lam_entries_entry_title">Hey</span>
-                    </header>
-
-                    <p class="lam_entries_entry_content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </article> --> 
-
     <!-- PAGINATION --->
                 <div class="lam_entries_pagination">
                     <button class="lam_entries_pagination_pages-down">
@@ -239,16 +215,9 @@
                         <?php 
                             $numberOfPages = ceil($countOfAllEntries / $entriesPerPage);
 
-                            // dmp('number of pages', $numberOfPages);
-                            // dmp('used filter', $usedFilter);
-                            // dmp('count of all entries', $countOfAllEntries);
-                            // dmp('current page', $currentPage);
-
                             for($x = 1; $x <= $numberOfPages; $x++){
                                 $usedFilter['page'] = $x;
                                 $paginationQuery = escape(http_build_query($usedFilter));
-
-                                // dmp('query', $paginationQuery);
 
                                 if($x === $currentPage){
                                     echo 
@@ -276,9 +245,6 @@
                         <img src="./images/right-arrow.png" alt="right arrow">
                     </button>
                 </div>
-
-            <!-- // ' HANDLE THE DISPLAY OF THE PAGE OPTIONS ' -->
-            <!-- <script src="./src/js/pagination.js"></script> -->
 
             </section>
         </main>
@@ -310,13 +276,10 @@
 
                     foreach($storedEntriesForTheFilter as $entry){
                         $authorName = $entry['author'];
-
-                        // dmp('author name', $authorName);
                         in_array($authorName, $filteredAuthor) || $filteredAuthor[] = $authorName; 
             
                     }
 
-                    // dmp('filtered authors', $filteredAuthor);
                 ?>
 
                 <ul class="lam_floating-actions_choice_author">
@@ -339,10 +302,6 @@
                     $theFirstExistingDate = $sortedDateArray[0];
                     $theLatestExistingDate = $sortedDateArray[count($sortedDateArray)-1];
 
-                    // dmp('date array', $dateArray);
-                    // dmp('sorted date array', $sortedDateArray);
-                    // dmp('the oldest date', $theFirstExistingDate);
-                    // dmp('the latest date', $theLatestExistingDate);
                 ?>
 
                 <div class="lam_floating-actions_choice_date">
@@ -367,9 +326,6 @@
             </form>
 
         </div><!-- End Floating Actions Container -->
-        
-
-
 
     </div><!-- End Big Container -->
     

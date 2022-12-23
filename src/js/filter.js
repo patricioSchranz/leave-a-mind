@@ -37,7 +37,6 @@ const
 const submitTheChoosenOption = (option, optionValue)=>{
     hiddenFormInput.setAttribute('name', option)
     hiddenFormInput.value = optionValue
-    console.log(hiddenFormInput)
     hiddenForm.submit()
 }
 
@@ -81,9 +80,6 @@ let
 pickListItems.forEach(pickListItem =>{
     pickListItem.addEventListener('click', ()=>{
         selectedOption = pickListItem.innerHTML
-
-        // console.log('the selected option is =>', selectedOption)
-        // console.log('current sub options list', currentSubOptionsList)
 
         switch (selectedOption){
             case 'Kategorie':
@@ -136,19 +132,9 @@ subPickListDateElements.forEach(dateElement =>{
 
         clickedDateElement.setAttribute('max', currentDate)
 
-        clickedDateElement === startDateElement
-        ? console.log('start date is clicked')
-        : console.log('end date is clicked')
-
-        console.log('the current date', currentDate)
-        console.log('the clicked date element', clickedDateElement)
-        console.log('value of the clickedDateElement', clickedDateElement.value)
-
         clickedDateElement.onchange = ()=>{
-            console.log('end date changed', endDateElement.value)
 
             if(startDateElement.value && endDateElement.value){
-                console.log('two dates exist')
 
                 const fullSearchedDate = [startDateElement.value, endDateElement.value]
 

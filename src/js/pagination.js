@@ -35,18 +35,6 @@ let
         : 1
 
 
-console.log('count of pages', countOfPages)
-console.log('count of steps', countOfSteps)
-console.log('count of steps from storage', countOfStepsFromStorage)
-console.log('scroll count', scrollCount)
-
-console.log('current url', url.length)
-// console.log('includes the url a query named page ?', url.includes('page'))
-// console.log('url params', urlParams)
-console.log('current page', currentPage)
-console.log('local storage offset', localStorage.getItem('offset'))
-
-
 // ---------------------------------------
 // FUNCTIONS
 // ---------------------------------------
@@ -84,12 +72,6 @@ buttonUp.addEventListener('click', (event)=>{
 
     scrollCount++
 
-    console.clear()
-    console.log('count of steps', countOfSteps)
-    console.log('scroll count', scrollCount)
-    console.log('offset', pageOptionsOffset)
-    console.log('limit', pageOptionsLimit)
-
     if(scrollCount <= countOfSteps){
         
         pageOptionsLimit += 5
@@ -99,13 +81,9 @@ buttonUp.addEventListener('click', (event)=>{
         
         setLocalStorage()
 
-        console.log('local storage offset', localStorage.getItem('offset'))
-        console.log('p limit', pageOptionsLimit)
-
         scrollCount === countOfSteps && (buttonUp.disabled = true)
     }
     else {
-        console.log(event.target)
         buttonUp.disabled = true
     }
 })
@@ -116,13 +94,6 @@ buttonDown.addEventListener('click', ()=>{
     buttonUp.disabled && (buttonUp.disabled = false)
 
     scrollCount--
-
-    console.clear()
-    console.log('count of steps', countOfSteps)
-    console.log('scroll count', scrollCount)
-    console.log('offset', pageOptionsOffset)
-    console.log('limit', pageOptionsLimit)
-
     
     if(scrollCount >= 1){
         
@@ -132,9 +103,6 @@ buttonDown.addEventListener('click', ()=>{
         showPageOptions()
         
         setLocalStorage()
-
-        console.log('local storage offset', localStorage.getItem('offset'))
-        console.log('p limit', pageOptionsLimit)
 
         scrollCount === 1 && (buttonDown.disabled = true)
     }

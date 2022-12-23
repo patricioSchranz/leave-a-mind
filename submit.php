@@ -102,8 +102,6 @@ if(!empty($_POST)){
     
     // => if everything worked, open the index.php
     if($thisStatementId){
-        dmp('redirect', $thisStatementId);
-
         echo 
         "<script>
            window.open('./index.php', '_self')
@@ -117,16 +115,7 @@ if(!empty($_POST)){
 // => if the $_POST array is empty, terminate the script
 else{
     die('Error');
-    // header("Location: ./index.php"); 
 }
 
-
-dmp('The Author', $author);
-dmp('The Title', $title);
-dmp('The Message', $message);
-dmp('The Hashtag', $hashtag);
-dmp('The current Date', $currentDate);
-dmp('The current Date formated', $currentDateFormated);
-dmp('last insert id ', $thisStatementId);
 
 

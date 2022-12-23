@@ -35,11 +35,6 @@ let
 
 const regExp_alphanumericWhitespace = /[^\w\s]/g // match all that is not ([^]) alphanumeric (\w) or whitespace (\s) globaly (/g)
 
-// let test = "Rute   8 "
-// console.log(test.match(regExp_alphanumericWhitespace))
-
-// test.match(regExp_alphanumericWhitespace) || console.log('match valid input')
-// test.match(regExp_alphanumericWhitespace) && console.log('match invalid input')
 
 // => create an object for each form element
 const formElements = [
@@ -69,15 +64,8 @@ const formElements = [
     }
 ]
 
-// formElements.forEach(input =>{
-//     const {name, valid, regExp} = input
-
-//     console.log(regExp)
-// })
-
 // => validate the form datas
 const validateForm = formElements =>{
-    console.log('--- validateForm() ---')
 
     formElements.forEach((formElement, idx) =>{
         let 
@@ -86,7 +74,6 @@ const validateForm = formElements =>{
 
         // => if a element has a regular expression to check, check if anything match
         if(regExp){
-            // console.log('element with regexp', name)
 
             if(trimmedInputValue.match(regExp)){
                 formElements[idx].errorMessage = `Unzulässige Eingabe: <br> Es sind nur alphanumerische Werte <br> und Leerzeichen erlaubt`
@@ -99,7 +86,6 @@ const validateForm = formElements =>{
         }
         // => if there is no regEx for a element, it must still contain at least one character
         else if(!regExp){
-            console.log('input length', trimmedInputValue.length)
             trimmedInputValue.length > 0 && (formElements[idx].valid = true)
         }
 
@@ -112,62 +98,39 @@ const validateForm = formElements =>{
             formElements[idx].errorMessage = ''
             formElements[idx].valid = true
         }
-
-        console.log(`${name} is valid: ${formElements[idx].valid}`)
-        console.log('error:', formElements[idx].errorMessage)  
     })
 
-    console.log('---')
 }
 
 // => check if all form elements are valid / set whole form valid state
 const checkIfAllElementsValid = formElements =>{
     let validElements = 0
 
-    console.log('--- checkIfAllElementsValid() ---')
-
     formElements.forEach(element =>{
-        console.log('name =>', element.name)
-        console.log('valid ?', element.valid)
-        console.log('count valid elements =>', validElements)
-
         element.valid && validElements++
         validElements === formElements.length && (formValid = true)
     })
 
-    
-    formValid && console.log('Form is valid')
-    console.log('formvalid =>', formValid)
-    console.log('formElements.length =>', formElements.length)
-    console.log('valid elements =>', validElements)
-    console.log('---')
 }
 
 // => if the valid state for the form is true, submit the form
 //    else => throw the error messages / user hints
 const submitFormOrShowError = (formElements) =>{
-    console.log('- submitFormOrShowError -')
 
     if(formValid){
         // => before submit, delete the whitespaces from the start and the end of the input strings
         formElements.forEach(input =>{
             input.element.value = input.element.value.trim()
-            console.log(input.element.value)
         })
 
         theForm.submit()
     }
     else{
         formElements.forEach(input =>{
-            console.log(input.name)
-            console.log(input.valid)
-            console.log(input.hintDisplay)
-
             input.valid || (input.hintDisplay.innerHTML = input.errorMessage)
             input.valid && (input.hintDisplay.innerHTML = input.errorMessage)
         })
     }
-    console.log('-  -')
 }
 
 formControlButton.addEventListener('click', ()=>{
@@ -182,14 +145,9 @@ formControlButton.addEventListener('click', ()=>{
             // => change the state of this process
             formState = 1
 
-            // console.log('child nodes of the button =>', formControlButton.childNodes[1])
             break
 
         case 1:
-            // => needed 4 php testing
-            // theForm.submit()
-            // break
-
             // => validate the form elements
             validateForm(formElements)
 

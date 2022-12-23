@@ -3,9 +3,6 @@
 require __DIR__ . '/inc/connect.php';
 require __DIR__ . '/inc/functions.php';
 
-// dmp('PDO Objekt', $pdo);
-// dmp('GET Array', $_GET);
-
 
 // 'PAGINATION VARIABLES'
 
@@ -19,8 +16,6 @@ $currentPage =
 
 $offset = ($currentPage -1) * $entriesPerPage ; // first entry of the page
 $limit = $currentPage * $entriesPerPage - 1; // last entry of the page
-
-// dmp('THE CURRENT PAGE IS ', $currentPage);
 
 
 
@@ -85,31 +80,13 @@ if(
 
     $countOfAllEntries = count($entriesAll);
 
-    // for($x = $offset; $x <= $limit; $x++){
-    //     // dmp('$x', $x);
-    //     // dmp('$limit', $limit);
-        
-    //     if(!empty($entriesAll[$x])){
-    //         $entries[$x] = $entriesAll[$x];
-    //     }
-    //     else{
-    //         break;
-    //     }
-       
-    // }
-
     // => selection of entries for the current page
     $entries = getPaginationPortion($entriesAll, $offset, $limit);
-    // dmp('entries', $entries);
-    
-    // dmp('count of all entries', $countOfAllEntries);
+
 }
 else{
-    // dmp('the get parameter', $_GET);
-    
     if(isset($_GET['category'])){
-        // dmp('choosen category', $_GET['category']);
-
+    
         $statement_fetchByCategory->bindValue(':searchedCategory',$_GET['category'] );
         $statement_fetchByCategory->execute();
 
@@ -119,14 +96,9 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        // dmp('used filter', $usedFilter);
-        // dmp('page number', $currentPage);
-        // dmp('offset', $offset);
-        // dmp('limit', $limit);
     }
 
     else if(isset($_GET['author'])){
-        // dmp('choosen author', $_GET['author']);
 
         $statement_fetchByAuthor->bindValue(':searchedAuthor', $_GET['author']);
         $statement_fetchByAuthor->execute();
@@ -137,20 +109,13 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        // dmp('used filter', $usedFilter);
-        // dmp('page number', $currentPage);
-        // dmp('offset', $offset);
-        // dmp('limit', $limit);
     }
 
     else if(isset($_GET['time'])){
-        // dmp('choosen time', $_GET['time']);
-
+    
         $periodArray = explode(',', $_GET['time']);
-        // dmp('period array', $periodArray);
 
         $sortedPeriodArray = sortArrayOfDateStrings($periodArray);
-        // dmp('sorted period array',$sortedPeriodArray);
 
         $startDate = $sortedPeriodArray[0];
         $endDate = $sortedPeriodArray[1];
@@ -165,12 +130,6 @@ else{
         $entries = getPaginationPortion($entriesAll, $offset, $limit);
         $usedFilter = $_GET;
 
-        // dmp('used filter', $usedFilter);
-        // dmp('page number', $currentPage);
-        // dmp('offset', $offset);
-        // dmp('limit', $limit);
-
-        // dmp('period entries', $entries);
     }
 
 }
