@@ -13,7 +13,7 @@ try{
     $pdo = new PDO($dataSourceName, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 }
 catch(PDOException $e){
-    echo 'Probleme mit der Datenbank...';
+    echo 'Sorry, Probleme mit der Datenbank...';
     echo $e->getMessage();
     die();
 }
