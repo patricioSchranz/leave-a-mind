@@ -21,7 +21,7 @@ foreach($_POST as $name => $value){
 
 // => if there are submited datas, handle it
 if(!empty($_POST)){
-    dmp('The Post Datas', $_POST);
+    // dmp('The Post Datas', $_POST);
 
     // 'CHECK IF NAME OR TITLE INPUT CONTAINS NOT ALLOWED CHARACTERS AND REPLACE THEM'
 
