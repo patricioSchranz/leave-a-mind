@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . '/dbs-config.php';
+// require __DIR__ . '/dbs-config.php';
+require __DIR__ . '/dbconfig.php';
 
 // -------------------------------------------
 // ### CONNECTING TO THE DATABASE ###
